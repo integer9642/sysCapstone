@@ -2,6 +2,7 @@ package com.example.syscapstone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.gesture.GestureOverlayView;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -55,5 +56,21 @@ public class MainActivity extends AppCompatActivity {
 
         //자동으로 마지막 줄로 스크롤 내림
         scrollView1.fullScroll(View.FOCUS_DOWN);
+    }
+
+    public void click1(View view){
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    public void click2(View view){
+
+        Intent intent = new Intent(this, MainActivity2.class);
+        startActivity(intent);
+    }
+    public void click3(View view){
+
+        Intent intent = new Intent(this, MainActivity3.class);
+        startActivity(intent);
     }
 }
