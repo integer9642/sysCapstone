@@ -9,6 +9,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.os.Bundle;
@@ -18,7 +20,11 @@ public class MainActivity extends AppCompatActivity {
     View view1, view2;
     ScrollView scrollView1;
     TextView textView1;
+    ImageView rowLine, colLine;
     GestureDetector detector; //무슨 제스쳐를 했는지 감지
+
+    FrameLayout.LayoutParams rowLayoutParams;
+    FrameLayout.LayoutParams colLayoutParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         view1 = findViewById(R.id.view1);
         scrollView1 = findViewById(R.id.scrollView1);
         textView1 = findViewById(R.id.textView1);
+        rowLine = findViewById(R.id.rowLine);
+        colLine = findViewById(R.id.colLine);
+
+        rowLayoutParams = (FrameLayout.LayoutParams) rowLine.getLayoutParams();
+        colLayoutParams = (FrameLayout.LayoutParams) colLine.getLayoutParams();
 
         //터치를 했을때 작동하는 메서드
         view1.setOnTouchListener(new View.OnTouchListener() {
@@ -40,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
                 if(action == event.ACTION_DOWN) {   //처음 눌렸을 때
                     printString("손가락 눌림 : " + curX + ", " + curY);
+                    printCross(curX, curY);
                 } else if(action == event.ACTION_MOVE) {    //누르고 움직였을 때
                     printString("손가락 움직임 : " + curX + ", " + curY);
+                    printCross(curX, curY);
                 } else if(action == event.ACTION_UP) {    //누른걸 뗐을 때
                     printString("손가락 뗌 : " + curX + ", " + curY);
                 }
@@ -56,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
 
         //자동으로 마지막 줄로 스크롤 내림
         scrollView1.fullScroll(View.FOCUS_DOWN);
+    }
+
+    private void printCross(float x, float y){
+        rowLayoutParams.topMargin = (int) y;
+        colLayoutParams.leftMargin = (int) x;
+
+        rowLine.setLayoutParams(rowLayoutParams);
+        colLine.setLayoutParams(colLayoutParams);
     }
 
     public void click1(View view){
